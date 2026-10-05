@@ -1,7 +1,7 @@
-﻿# Instalación de Agenda Académica (entorno local en Windows)
+# Instalación de Agenda Académica (entorno local en Windows)
 
 Estas instrucciones reproducen el entorno usado en los Retos 2 y 3: PostgreSQL, Flask servido por
-Waitress, Nginx como servidor web con HTTPS y el dominio local `agenda.local`.
+Waitress, Nginx como servidor web con HTTPS y el dominio local `agenda.localhost`.
 
 ## Versiones instaladas
 
@@ -49,14 +49,21 @@ ejecuta `db/init.sql` (tablas, llaves foráneas, índices y datos de ejemplo) y 
 
 ## 4. Dominio local
 
-Abre el Bloc de notas **como administrador**, edita `C:\Windows\System32\drivers\etc\hosts` y
-agrega:
+La aplicación usa el dominio personalizado `agenda.localhost`. El dominio de nivel superior
+`.localhost` está reservado para el equipo local (RFC 6761): Chrome, Edge y curl lo resuelven
+siempre a `127.0.0.1`, por lo que no es necesario editar el archivo `hosts` ni instalar un DNS local.
+Nginx atiende ese nombre con la directiva `server_name agenda.localhost` y el certificado lo incluye
+en su campo *Subject Alternative Name*.
 
-```
-127.0.0.1   agenda.local
+Comprueba la resolución con:
+
+```powershell
+curl.exe -sI http://agenda.localhost/agenda/
 ```
 
-Comprueba con `ping agenda.local` que responda `127.0.0.1`.
+Si prefieres otro nombre (por ejemplo `agenda.local`), agrégalo al archivo
+`C:\Windows\System32\drivers\etc\hosts` como `127.0.0.1 agenda.local` (requiere administrador)
+y también a `server_name` y a `DOMINIOS` en `scripts/generar_certificado.py`.
 
 ## 5. Iniciar la aplicación
 
@@ -72,8 +79,8 @@ construye `nginx.conf` a partir de `deploy/nginx/agenda.conf`, valida la configu
 |---|---|
 | PostgreSQL | `127.0.0.1:55432` |
 | Flask + Waitress | `127.0.0.1:5055` (solo accesible desde Nginx) |
-| Nginx HTTP | `http://agenda.local` → redirección 301 a HTTPS |
-| Nginx HTTPS | `https://agenda.local/agenda/` |
+| Nginx HTTP | `http://agenda.localhost` → redirección 301 a HTTPS |
+| Nginx HTTPS | `https://agenda.localhost/agenda/` |
 
 El certificado es autofirmado: el navegador mostrará una advertencia hasta que importes
 `..\..\.local\certificados\ca-local.crt` en *Entidades de certificación raíz de confianza* (opcional).
@@ -88,7 +95,7 @@ Para detener todo: `.venv\Scripts\python.exe scripts\entorno.py detener`.
 .venv\Scripts\python.exe tests\test_navegadores.py
 
 # Rendimiento con Lighthouse
-npx lighthouse@13.5.0 https://agenda.local/agenda/ --chrome-flags="--headless=new --ignore-certificate-errors" --output html --output json --output-path evidencias\lighthouse\agenda
+npx lighthouse@13.5.0 https://agenda.localhost/agenda/ --chrome-flags="--headless=new --ignore-certificate-errors" --output html --output json --output-path evidencias\lighthouse\agenda
 ```
 
 ## 7. Empaquetar para el servidor

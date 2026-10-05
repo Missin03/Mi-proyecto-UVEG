@@ -75,7 +75,7 @@ git log --oneline -- despliegue-r2-r3
 | Mapeo de directorios | `/agenda/static/` → `static/` del proyecto, con caché de 7 días |
 | Proxy | `/agenda/` → aplicación Flask con `X-Forwarded-Prefix: /agenda` |
 
-`deploy/nginx/agenda.conf` (Reto 3) agrega el dominio local `agenda.local`, HTTPS con certificado
+`deploy/nginx/agenda.conf` (Reto 3) agrega el dominio local `agenda.localhost`, HTTPS con certificado
 propio, redirección obligatoria de HTTP a HTTPS y encabezados de seguridad (CSP, HSTS, etc.).
 
 ```powershell

@@ -2,7 +2,7 @@
 
 Uso:
     python scripts/entorno.py iniciar --modo http    # Reto 2: http://localhost/agenda/
-    python scripts/entorno.py iniciar --modo https   # Reto 3: https://agenda.local/agenda/
+    python scripts/entorno.py iniciar --modo https   # Reto 3: https://agenda.localhost/agenda/
     python scripts/entorno.py detener
     python scripts/entorno.py estado
 
@@ -122,7 +122,7 @@ def iniciar_nginx(modo):
     subprocess.Popen([str(NGINX / 'nginx.exe'), '-p', f'{NGINX}/', '-c', str(conf)], cwd=NGINX,
                      creationflags=SEGUNDO_PLANO)
     time.sleep(1)
-    destino = 'https://agenda.local/agenda/' if modo == 'https' else 'http://localhost/agenda/'
+    destino = 'https://agenda.localhost/agenda/' if modo == 'https' else 'http://localhost/agenda/'
     print(f'Nginx activo ({plantilla.name}). Abre {destino}')
 
 

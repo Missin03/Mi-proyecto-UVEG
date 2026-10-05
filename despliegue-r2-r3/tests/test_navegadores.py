@@ -1,7 +1,7 @@
 """Pruebas funcionales de Agenda Académica en Google Chrome y Microsoft Edge.
 
 Uso: python tests/test_navegadores.py [url_base]
-Por defecto prueba https://agenda.local/agenda/ con los navegadores instalados en el equipo
+Por defecto prueba https://agenda.localhost/agenda/ con los navegadores instalados en el equipo
 (Playwright con channel='chrome' y channel='msedge'). Guarda capturas y un resumen en
 evidencias/pruebas/.
 """
@@ -14,7 +14,7 @@ from pathlib import Path
 from playwright.sync_api import expect, sync_playwright
 
 RAIZ = Path(__file__).resolve().parent.parent
-BASE = (sys.argv[1] if len(sys.argv) > 1 else 'https://agenda.local/agenda/').rstrip('/') + '/'
+BASE = (sys.argv[1] if len(sys.argv) > 1 else 'https://agenda.localhost/agenda/').rstrip('/') + '/'
 SALIDA = RAIZ / 'evidencias/pruebas'
 NAVEGADORES = {'chrome': 'Google Chrome', 'msedge': 'Microsoft Edge'}
 

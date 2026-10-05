@@ -1,4 +1,4 @@
-"""Crea una autoridad certificadora local y un certificado TLS para agenda.local.
+"""Crea una autoridad certificadora local y un certificado TLS para agenda.localhost.
 
 Uso: python scripts/generar_certificado.py <carpeta_destino>
 Genera ca-local.crt, agenda.crt y agenda.key. La llave privada nunca se versiona.
@@ -13,7 +13,7 @@ from cryptography.hazmat.primitives import hashes, serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.x509.oid import ExtendedKeyUsageOID, NameOID
 
-DOMINIOS = ['agenda.local', 'localhost']
+DOMINIOS = ['agenda.localhost', 'localhost']
 
 
 def main(destino):
