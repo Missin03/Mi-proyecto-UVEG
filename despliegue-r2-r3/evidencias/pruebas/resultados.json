@@ -1,0 +1,114 @@
+{
+  "url": "https://agenda.localhost/agenda/",
+  "fecha": "2026-10-05 14:51",
+  "navegadores": [
+    {
+      "navegador": "Google Chrome",
+      "version": "154.0.8037.93",
+      "casos": [
+        {
+          "caso": "Redirección HTTP a HTTPS",
+          "resultado": "OK",
+          "detalle": "http://agenda.localhost/agenda/ -> https://agenda.localhost/agenda/",
+          "ms": 180
+        },
+        {
+          "caso": "Carga inicial y encabezados de seguridad",
+          "resultado": "OK",
+          "detalle": "HSTS: max-age=31536000",
+          "ms": 150
+        },
+        {
+          "caso": "Registrar una tarea",
+          "resultado": "OK",
+          "detalle": "Prueba en Google Chrome 145139",
+          "ms": 460
+        },
+        {
+          "caso": "Actualizar el avance",
+          "resultado": "OK",
+          "detalle": "Pendiente -> Completada",
+          "ms": 251
+        },
+        {
+          "caso": "Buscar y filtrar",
+          "resultado": "OK",
+          "detalle": "1 resultado",
+          "ms": 158
+        },
+        {
+          "caso": "Validación en el servidor",
+          "resultado": "OK",
+          "detalle": "El servidor rechaza un título de 2 caracteres (HTTP 400)",
+          "ms": 278
+        },
+        {
+          "caso": "Aviso de privacidad y términos",
+          "resultado": "OK",
+          "detalle": "Enlaces visibles en el pie de página",
+          "ms": 231
+        },
+        {
+          "caso": "Consola sin errores",
+          "resultado": "OK",
+          "detalle": "Sin errores ni bloqueos de CSP en consola",
+          "ms": 0
+        }
+      ]
+    },
+    {
+      "navegador": "Microsoft Edge",
+      "version": "154.0.4258.53",
+      "casos": [
+        {
+          "caso": "Redirección HTTP a HTTPS",
+          "resultado": "OK",
+          "detalle": "http://agenda.localhost/agenda/ -> https://agenda.localhost/agenda/",
+          "ms": 193
+        },
+        {
+          "caso": "Carga inicial y encabezados de seguridad",
+          "resultado": "OK",
+          "detalle": "HSTS: max-age=31536000",
+          "ms": 155
+        },
+        {
+          "caso": "Registrar una tarea",
+          "resultado": "OK",
+          "detalle": "Prueba en Microsoft Edge 145142",
+          "ms": 594
+        },
+        {
+          "caso": "Actualizar el avance",
+          "resultado": "OK",
+          "detalle": "Pendiente -> Completada",
+          "ms": 262
+        },
+        {
+          "caso": "Buscar y filtrar",
+          "resultado": "OK",
+          "detalle": "1 resultado",
+          "ms": 170
+        },
+        {
+          "caso": "Validación en el servidor",
+          "resultado": "OK",
+          "detalle": "El servidor rechaza un título de 2 caracteres (HTTP 400)",
+          "ms": 280
+        },
+        {
+          "caso": "Aviso de privacidad y términos",
+          "resultado": "OK",
+          "detalle": "Enlaces visibles en el pie de página",
+          "ms": 274
+        },
+        {
+          "caso": "Consola sin errores",
+          "resultado": "OK",
+          "detalle": "Sin errores ni bloqueos de CSP en consola",
+          "ms": 0
+        }
+      ]
+    }
+  ]
+}
