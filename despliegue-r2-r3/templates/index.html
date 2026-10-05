@@ -1,0 +1,9 @@
+{% extends 'base.html' %}{% block content %}
+<div class="heading"><div><p class="eyebrow">TU PLAN DE ESTUDIO</p><h1>Un paso más cerca de tu próxima entrega</h1><p class="muted">Consulta tus pendientes y actualiza el avance de cada tarea.</p></div></div>
+<section class="stats" aria-label="Resumen de tareas">{% for state in states %}<div class="stat"><span>{{state}}</span><strong>{{counts[state]}}</strong></div>{% endfor %}</section>
+<section class="panel"><div class="paneltop"><h2>Mis tareas</h2><span class="muted">{{tasks|length}} resultados</span></div>
+<form class="filters" method="get"><div><label for="buscar">Buscar por título</label><input type="search" id="buscar" name="buscar" maxlength="100" value="{{text}}" placeholder="Ejemplo: modelo de datos"></div>
+<div><label for="estado">Estado</label><select id="estado" name="estado"><option value="">Todos los estados</option>{% for s in states %}<option {% if s==status %}selected{% endif %}>{{s}}</option>{% endfor %}</select></div><button type="submit">Aplicar filtros</button><a href="{{url_for('index')}}">Limpiar</a></form>
+<div class="tasks">{% for task in tasks %}<article class="task"><div class="taskmain"><span class="subject">{{task.materia}}</span><h3>{{task.titulo}}</h3><p>{{task.descripcion}}</p><time datetime="{{task.fecha_entrega}}">Entrega {{task.fecha_entrega.strftime('%d/%m/%Y')}}</time></div>
+<form method="post" action="{{url_for('update',task_id=task.id)}}"><input type="hidden" name="csrf_token" value="{{csrf_token()}}"><label for="status-{{task.id}}">Avance de {{task.titulo}}</label><select id="status-{{task.id}}" name="estado">{% for s in states %}<option {% if s==task.estado %}selected{% endif %}>{{s}}</option>{% endfor %}</select><button class="secondary" type="submit">Guardar avance</button></form></article>{% else %}<p class="empty">No hay tareas con estos filtros. Puedes limpiar la búsqueda o registrar una nueva.</p>{% endfor %}</div></section>
+{% endblock %}

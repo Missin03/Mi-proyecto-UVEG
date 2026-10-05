@@ -1,0 +1,12 @@
+<!doctype html>
+<html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="Agenda académica para organizar tareas, materias y fechas de entrega.">
+<title>{% block title %}Agenda Académica{% endblock %}</title>
+<link rel="icon" href="{{url_for('static',filename='img/icono.png')}}">
+<link rel="stylesheet" href="{{url_for('static',filename='css/app.min.css')}}">
+<script src="{{url_for('static',filename='js/app.min.js')}}" defer></script></head>
+<body><a class="skip" href="#contenido">Saltar al contenido</a>
+<header><a class="brand" href="{{url_for('index')}}"><img src="{{url_for('static',filename='img/icono.png')}}" width="38" height="38" alt=""><span>Agenda Académica<small>Organiza tus entregas</small></span></a>
+<nav aria-label="Principal"><a href="{{url_for('index')}}">Mis tareas</a><a class="button" href="{{url_for('create')}}">Nueva tarea</a></nav></header>
+<main id="contenido">{% for message in get_flashed_messages() %}<p class="success" role="status">{{message}}</p>{% endfor %}{% block content %}{% endblock %}</main>
+<footer><span>Agenda Académica · Práctica de despliegue web</span><div><a href="{{url_for('privacy')}}">Aviso de privacidad</a><a href="{{url_for('terms')}}">Términos de uso</a></div></footer></body></html>

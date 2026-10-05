@@ -1,0 +1,13 @@
+{% extends 'base.html' %}{% block content %}<article class="legal panel">
+{% if kind=='privacidad' %}<p class="eyebrow">INFORMACIÓN SOBRE TUS DATOS</p><h1>Aviso de privacidad</h1>
+<p>Agenda Académica es una aplicación local de práctica administrada por Emmanuel Missin Garcia Vargas. Su finalidad es organizar tareas por materia y fecha de entrega.</p>
+<h2>Datos y finalidad</h2><p>Se guardan títulos, descripciones, materias, fechas de entrega, estados y fecha de creación. Se utilizan para mostrar, buscar y actualizar las tareas. Usa datos de prueba y evita incluir información personal sensible.</p>
+<h2>Protección y conservación</h2><p>La base de datos está limitada al equipo local. La aplicación valida las entradas, utiliza consultas parametrizadas y protege los formularios contra solicitudes no autorizadas. En el despliegue HTTPS, la conexión se cifra. Una cookie de sesión permite validar los formularios y mostrar avisos; no se usa para publicidad.</p>
+<h2>Control sobre la información</h2><p>Los registros se conservan durante la práctica. Puedes solicitar acceso, corrección o eliminación al responsable mediante la mensajería institucional del aula UVEG. No se transfieren registros a terceros ni se integran servicios de analítica externa.</p>
+<p class="muted">Última actualización: 4 de octubre de 2026.</p>
+{% else %}<p class="eyebrow">CONDICIONES DE LA PRÁCTICA</p><h1>Términos de uso</h1>
+<p>Agenda Académica permite registrar, consultar y actualizar tareas en un entorno local de aprendizaje. El uso de la aplicación supone conocer estas condiciones.</p>
+<h2>Uso permitido</h2><p>Utiliza la aplicación para ejercicios académicos con datos de prueba. No introduzcas contraseñas, documentos de identidad o datos sensibles. No intentes modificar otros sistemas, evadir controles ni cargar contenido ilícito.</p>
+<h2>Alcance y responsabilidad</h2><p>La aplicación es una práctica educativa de uso individual. No sustituye el calendario oficial de UVEG ni garantiza recordatorios, disponibilidad continua o conservación indefinida de información. El usuario debe comprobar sus fechas en el portal escolar.</p>
+<h2>Cambios y atención</h2><p>El responsable puede actualizar el software durante la práctica. Para reportar errores o solicitar atención sobre registros, utiliza la mensajería institucional del aula UVEG dirigida al responsable.</p>
+<p class="muted">Última actualización: 4 de octubre de 2026.</p>{% endif %}</article>{% endblock %}

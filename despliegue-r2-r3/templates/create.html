@@ -1,0 +1,7 @@
+{% extends 'base.html' %}{% block title %}Nueva tarea · Agenda Académica{% endblock %}{% block content %}
+<p class="eyebrow">ORGANIZA TU TRABAJO</p><h1>Nueva tarea</h1><p class="muted">Selecciona una materia y define la fecha de entrega.</p>
+<section class="panel formpanel">{% if error %}<p class="error" role="alert">{{error}}</p>{% endif %}<form method="post"><input type="hidden" name="csrf_token" value="{{csrf_token()}}">
+<label for="titulo">Título</label><input id="titulo" name="titulo" required minlength="3" maxlength="100" value="{{request.form.get('titulo','')}}">
+<label for="descripcion">Descripción opcional</label><textarea id="descripcion" name="descripcion" rows="3" maxlength="600">{{request.form.get('descripcion','')}}</textarea>
+<div class="formrow"><div><label for="materia_id">Materia</label><select id="materia_id" name="materia_id" required><option value="">Selecciona una materia</option>{% for s in subjects %}<option value="{{s.id}}" {% if request.form.get('materia_id')==s.id|string %}selected{% endif %}>{{s.nombre}}</option>{% endfor %}</select></div><div><label for="fecha_entrega">Fecha de entrega</label><input type="date" id="fecha_entrega" name="fecha_entrega" required value="{{request.form.get('fecha_entrega','')}}"></div></div>
+<div class="actions"><button type="submit">Guardar tarea</button><a href="{{url_for('index')}}">Cancelar</a></div></form></section>{% endblock %}
