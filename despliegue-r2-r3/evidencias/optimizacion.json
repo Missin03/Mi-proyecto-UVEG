@@ -1,0 +1,20 @@
+[
+  {
+    "archivo": "css/app.css",
+    "original_bytes": 4366,
+    "optimizado_bytes": 3745,
+    "reduccion": "14.2 %"
+  },
+  {
+    "archivo": "js/app.js",
+    "original_bytes": 216,
+    "optimizado_bytes": 134,
+    "reduccion": "38.0 %"
+  },
+  {
+    "archivo": "img/icono.png",
+    "original_bytes": 196993,
+    "optimizado_bytes": 606,
+    "reduccion": "99.7 %"
+  }
+]
