@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consola de publicación (simulación) · Agenda Académica</title>
+<style>
+  :root { --ink:#1f2933; --muted:#5f6b76; --line:#dde3e8; --bg:#f4f6f8; --verde:#126348; --verde2:#e7f5ee; --azul:#1a5fb4; --ambar:#fff4d6; --rojo:#a3262f; }
+  * { box-sizing: border-box; }
+  body { margin:0; font:14px/1.5 "Segoe UI", system-ui, sans-serif; color:var(--ink); background:var(--bg); }
+  .aviso { background:#ffe8a3; color:#4a3600; text-align:center; padding:7px 12px; font-weight:600; font-size:13px; border-bottom:1px solid #e6c65c; }
+  header { background:#20303c; color:#fff; display:flex; align-items:center; gap:14px; padding:10px 22px; }
+  header img { width:34px; height:34px; border-radius:8px; }
+  header .app { font-weight:600; font-size:16px; } header .app small { display:block; font-weight:400; color:#b8c4cc; font-size:12px; }
+  header .cuenta { margin-left:auto; font-size:12px; color:#b8c4cc; text-align:right; }
+  .marco { display:flex; min-height:calc(100vh - 92px); }
+  nav { width:250px; background:#fff; border-right:1px solid var(--line); padding:14px 0; flex-shrink:0; }
+  nav h4 { margin:14px 20px 4px; font-size:11px; letter-spacing:.8px; color:var(--muted); text-transform:uppercase; }
+  nav a { display:flex; justify-content:space-between; padding:8px 20px; color:var(--ink); text-decoration:none; font-size:14px; }
+  nav a.activo { background:var(--verde2); color:var(--verde); font-weight:600; border-right:3px solid var(--verde); }
+  nav a .ok { color:var(--verde); font-weight:700; }
+  main { flex:1; padding:24px 32px 48px; max-width:1100px; }
+  h1 { font-size:24px; margin:0 0 4px; font-weight:600; } .sub { color:var(--muted); margin:0 0 20px; }
+  .tarjeta { background:#fff; border:1px solid var(--line); border-radius:10px; padding:20px 22px; margin-bottom:16px; }
+  .tarjeta h2 { font-size:16px; margin:0 0 4px; } .tarjeta > p.ayuda { color:var(--muted); margin:0 0 14px; font-size:13px; }
+  label { display:block; font-weight:600; font-size:13px; margin:14px 0 5px; }
+  input[type=text], input[type=email], input[type=url], textarea, select { width:100%; font:inherit; padding:9px 11px; border:1px solid #9aa7b1; border-radius:6px; background:#fff; color:var(--ink); }
+  textarea { resize:vertical; }
+  .contador { text-align:right; font-size:12px; color:var(--muted); } .contador.mal { color:var(--rojo); }
+  .fila { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .opcion { display:flex; gap:9px; align-items:flex-start; margin:8px 0; font-size:14px; } .opcion input { margin-top:4px; }
+  .pill { display:inline-block; padding:2px 10px; border-radius:20px; font-size:12px; font-weight:600; }
+  .pill.ok { background:var(--verde2); color:var(--verde); } .pill.pend { background:var(--ambar); color:#6e4500; } .pill.info { background:#e4eefb; color:var(--azul); }
+  button { font:inherit; font-weight:600; padding:9px 18px; border-radius:6px; border:1px solid var(--verde); background:var(--verde); color:#fff; cursor:pointer; }
+  button.sec { background:#fff; color:var(--verde); } button:disabled { opacity:.55; cursor:not-allowed; }
+  .acciones { display:flex; gap:10px; justify-content:flex-end; margin-top:18px; }
+  .graficos { display:flex; gap:16px; flex-wrap:wrap; align-items:flex-end; }
+  .graficos figure { margin:0; } .graficos figcaption { font-size:12px; color:var(--muted); margin-top:4px; }
+  .graficos img { border:1px solid var(--line); border-radius:6px; display:block; }
+  table { width:100%; border-collapse:collapse; font-size:13px; } th, td { text-align:left; padding:8px 10px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th { color:var(--muted); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.4px; }
+  .mono { font-family:Consolas, monospace; font-size:12px; word-break:break-all; }
+  .zona { border:2px dashed #9aa7b1; border-radius:10px; padding:26px; text-align:center; color:var(--muted); }
+  .zona.lista { border-color:var(--verde); background:var(--verde2); color:var(--verde); }
+  .paises { columns:3; } .paises label { font-weight:400; margin:4px 0; display:flex; gap:8px; }
+  .estado { display:flex; gap:10px; align-items:center; padding:10px 0; border-bottom:1px solid var(--line); }
+  .estado:last-child { border-bottom:0; } .estado b { min-width:170px; }
+  .nota { background:#fff8e1; border:1px solid #f1d27a; border-radius:8px; padding:12px 14px; font-size:13px; }
+  section { display:none; } section.visible { display:block; }
+  .check { width:22px; text-align:center; font-weight:700; } .check.si { color:var(--verde); } .check.no { color:var(--rojo); }
+</style>
+</head>
+<body>
+<div class="aviso">SIMULACIÓN ACADÉMICA · Reto 4 UVEG · Página local que reproduce los pasos de publicación. No es Google Play Console ni envía nada a Google.</div>
+<header>
+  <img src="../icono-512.png" alt="Icono de Agenda Académica">
+  <div class="app">Agenda Académica <small id="h-paquete"></small></div>
+  <div class="cuenta">Cuenta de desarrollador (simulada)<br>Emmanuel Missin Garcia Vargas</div>
+</header>
+<div class="marco">
+<nav aria-label="Secciones">
+  <h4>Inicio</h4>
+  <a href="#crear" data-s="crear">Crear app <span class="ok" data-ok="crear"></span></a>
+  <h4>Presencia en la tienda</h4>
+  <a href="#ficha" data-s="ficha">Ficha principal <span class="ok" data-ok="ficha"></span></a>
+  <a href="#configuracion" data-s="configuracion">Categoría y contacto <span class="ok" data-ok="configuracion"></span></a>
+  <h4>Políticas</h4>
+  <a href="#contenido" data-s="contenido">Contenido de la app <span class="ok" data-ok="contenido"></span></a>
+  <h4>Versiones</h4>
+  <a href="#version" data-s="version">Producción: carga del AAB <span class="ok" data-ok="version"></span></a>
+  <h4>Monetización y alcance</h4>
+  <a href="#precios" data-s="precios">Precios y países <span class="ok" data-ok="precios"></span></a>
+  <h4>Lanzamiento</h4>
+  <a href="#resumen" data-s="resumen">Checklist y envío <span class="ok" data-ok="resumen"></span></a>
+</nav>
+<main>
+
+<!-- 1. Crear app -->
+<section id="crear">
+  <h1>Crear app</h1>
+  <p class="sub">Datos iniciales que se piden antes de abrir el panel de la app.</p>
+  <div class="tarjeta">
+    <label for="c-nombre">Nombre de la app</label>
+    <input type="text" id="c-nombre" value="Agenda Académica" maxlength="30">
+    <div class="contador" data-cuenta="c-nombre" data-max="30"></div>
+    <div class="fila">
+      <div>
+        <label for="c-idioma">Idioma predeterminado</label>
+        <select id="c-idioma"><option>Español (Latinoamérica) – es-419</option><option>Español (España) – es-ES</option><option>Inglés (Estados Unidos) – en-US</option></select>
+      </div>
+      <div>
+        <label for="c-paquete">Nombre del paquete (se toma del AAB)</label>
+        <input type="text" id="c-paquete" readonly>
+      </div>
+    </div>
+    <div class="fila">
+      <div>
+        <label>App o juego</label>
+        <div class="opcion"><input type="radio" name="tipo" id="t-app" checked><label for="t-app" style="margin:0;font-weight:400">App</label></div>
+        <div class="opcion"><input type="radio" name="tipo" id="t-juego"><label for="t-juego" style="margin:0;font-weight:400">Juego</label></div>
+      </div>
+      <div>
+        <label>Gratuita o de pago</label>
+        <div class="opcion"><input type="radio" name="precio0" id="p-gratis" checked><label for="p-gratis" style="margin:0;font-weight:400">Gratuita</label></div>
+        <div class="opcion"><input type="radio" name="precio0" id="p-pago"><label for="p-pago" style="margin:0;font-weight:400">De pago</label></div>
+      </div>
+    </div>
+    <label>Declaraciones</label>
+    <div class="opcion"><input type="checkbox" id="d-politicas" checked><span>La app cumple las <b>Políticas del Programa para Desarrolladores</b> de Google Play.</span></div>
+    <div class="opcion"><input type="checkbox" id="d-acuerdo" checked><span>Acepto el <b>Acuerdo de Distribución para Desarrolladores</b> y los términos de Play App Signing.</span></div>
+    <div class="opcion"><input type="checkbox" id="d-export" checked><span>La app cumple las <b>leyes de exportación de EE. UU.</b> (solo usa cifrado estándar del sistema).</span></div>
+    <div class="acciones"><button class="sec" type="button">Cancelar</button><button type="button" id="b-crear">Crear app</button></div>
+  </div>
+</section>
+
+<!-- 2. Ficha -->
+<section id="ficha">
+  <h1>Ficha principal de Play Store</h1>
+  <p class="sub">Idioma: Español (Latinoamérica). Es lo que verán los usuarios antes de instalar.</p>
+  <div class="tarjeta">
+    <h2>Detalles de la app</h2>
+    <label for="f-nombre">Nombre de la app</label>
+    <input type="text" id="f-nombre" value="Agenda Académica" maxlength="30">
+    <div class="contador" data-cuenta="f-nombre" data-max="30"></div>
+    <label for="f-breve">Descripción breve</label>
+    <input type="text" id="f-breve" maxlength="80" value="Organiza tus tareas escolares por materia y fecha. Sin anuncios ni cuentas.">
+    <div class="contador" data-cuenta="f-breve" data-max="80"></div>
+    <label for="f-completa">Descripción completa</label>
+    <textarea id="f-completa" rows="11" maxlength="4000">Agenda Académica te ayuda a llevar el control de tus entregas escolares desde el teléfono.
+
+Registra cada tarea con su materia, título, descripción y fecha de entrega, y cambia su estado conforme avanzas: pendiente, en curso o completada. La lista se ordena por fecha para que veas primero lo que vence antes, y los contadores te dicen cuánto te falta.
+
+Funciones principales:
+• Alta de tareas con validación de campos y selector de fecha.
+• Filtros por estado: pendientes, en curso y completadas.
+• Contadores de avance en la pantalla principal.
+• Diseño adaptable para teléfonos y tabletas.
+
+Tu información se queda en tu teléfono. La app no pide permisos, no usa internet, no muestra anuncios y no necesita cuenta. Puedes consultar el aviso de privacidad desde el menú en cualquier momento.
+
+Pensada para estudiantes de bachillerato y universidad que quieren organizar sus pendientes sin complicaciones.</textarea>
+    <div class="contador" data-cuenta="f-completa" data-max="4000"></div>
+  </div>
+  <div class="tarjeta">
+    <h2>Recursos gráficos</h2>
+    <p class="ayuda">Se comprueban las medidas reales de cada archivo al cargarlo.</p>
+    <div class="graficos">
+      <figure><img id="g-icono" src="../icono-512.png" width="128" height="128" alt="Icono 512 x 512"><figcaption>Icono <span data-medida="g-icono"></span> · PNG 32 bits</figcaption></figure>
+      <figure><img id="g-grafico" src="../grafico-1024x500.png" width="262" height="128" alt="Gráfico de funciones"><figcaption>Gráfico de funciones <span data-medida="g-grafico"></span></figcaption></figure>
+    </div>
+    <label>Capturas de pantalla del teléfono (mínimo 2)</label>
+    <div class="graficos" id="g-telefono">
+      <figure><img src="../capturas/telefono-1.png" height="200" alt="Lista de tareas"><figcaption>Lista</figcaption></figure>
+      <figure><img src="../capturas/telefono-2.png" height="200" alt="Estados de tareas"><figcaption>Estados</figcaption></figure>
+      <figure><img src="../capturas/telefono-3.png" height="200" alt="Formulario con validación"><figcaption>Validación</figcaption></figure>
+      <figure><img src="../capturas/telefono-4.png" height="200" alt="Aviso de privacidad"><figcaption>Privacidad</figcaption></figure>
+    </div>
+    <label>Capturas de pantalla de tableta de 10 pulgadas</label>
+    <div class="graficos" id="g-tableta">
+      <figure><img src="../capturas/tableta-1.png" height="160" alt="Vista en tableta"><figcaption>Tableta horizontal</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- 3. Categoría y contacto -->
+<section id="configuracion">
+  <h1>Categoría y datos de contacto</h1>
+  <p class="sub">Ayudan a que la app aparezca en las búsquedas correctas y a que los usuarios puedan pedir soporte.</p>
+  <div class="tarjeta">
+    <h2>Categoría de la app</h2>
+    <div class="fila">
+      <div><label for="k-tipo">Tipo</label><select id="k-tipo"><option>App</option></select></div>
+      <div><label for="k-cat">Categoría</label>
+        <select id="k-cat"><option value="">Selecciona una categoría</option><option selected>Educación</option><option>Productividad</option><option>Herramientas</option></select></div>
+    </div>
+    <label for="k-etiquetas">Etiquetas</label>
+    <input type="text" id="k-etiquetas" value="Organizador de tareas, Estudio, Calendario">
+  </div>
+  <div class="tarjeta">
+    <h2>Datos de contacto de la tienda</h2>
+    <p class="ayuda">El correo es obligatorio y se muestra en la ficha pública.</p>
+    <label for="k-correo">Correo electrónico</label>
+    <input type="email" id="k-correo" value="soporte.agenda@example.com">
+    <div class="contador">Dirección de ejemplo (dominio reservado) para la simulación.</div>
+    <label for="k-web">Sitio web</label>
+    <input type="url" id="k-web" value="https://github.com/Missin03/Mi-proyecto-UVEG/tree/main/android-agenda">
+    <label for="k-tel">Teléfono (opcional)</label>
+    <input type="text" id="k-tel" value="">
+  </div>
+</section>
+
+<!-- 4. Contenido de la app -->
+<section id="contenido">
+  <h1>Contenido de la app</h1>
+  <p class="sub">Declaraciones de políticas que Google revisa antes de aprobar la publicación.</p>
+  <div class="tarjeta">
+    <table>
+      <tr><th style="width:24%">Apartado</th><th style="width:46%">Respuesta</th><th>Estado</th></tr>
+      <tr><td><b>Política de privacidad</b></td><td><input type="url" id="p-url" value="https://github.com/Missin03/Mi-proyecto-UVEG/blob/main/android-agenda/PRIVACIDAD.md"><div class="contador">También visible dentro de la app: menú › Aviso de privacidad.</div></td><td><span class="pill" data-estado="p-url"></span></td></tr>
+      <tr><td><b>Anuncios</b></td><td><div class="opcion"><input type="radio" name="anuncios" id="a-no" checked><span>No, la app no contiene anuncios</span></div><div class="opcion"><input type="radio" name="anuncios" id="a-si"><span>Sí, contiene anuncios</span></div></td><td><span class="pill ok">Completado</span></td></tr>
+      <tr><td><b>Acceso a la app</b></td><td>Toda la funcionalidad está disponible sin restricciones (no hay inicio de sesión).</td><td><span class="pill ok">Completado</span></td></tr>
+      <tr><td><b>Clasificación de contenido</b></td><td>Cuestionario IARC, categoría <i>Referencia, noticias o educación</i>: sin violencia, lenguaje, contenido sexual, apuestas ni compras. Resultado: <b>PEGI 3 · ESRB Todos · IARC 3+</b>.</td><td><span class="pill ok">Completado</span></td></tr>
+      <tr><td><b>Público objetivo</b></td><td>13 a 15, 16 a 17 y 18 años o más. No está dirigida a menores de 13, por lo que no aplica el programa Diseñado para familias.</td><td><span class="pill ok">Completado</span></td></tr>
+      <tr><td><b>Seguridad de los datos</b></td><td>¿Recopila o comparte datos? <b>No</b>. Los datos se guardan solo en el dispositivo, no se transmiten y el usuario puede borrarlos.</td><td><span class="pill ok">Completado</span></td></tr>
+      <tr><td><b>Permisos sensibles</b></td><td id="p-permisos"></td><td><span class="pill ok">Completado</span></td></tr>
+      <tr><td><b>Accesibilidad</b></td><td>Textos alternativos en botones de icono, áreas táctiles de 48 dp, contraste AA y encabezados para lectores de pantalla (revisado con Android Lint).</td><td><span class="pill ok">Completado</span></td></tr>
+      <tr><td><b>Apps gubernamentales, financieras, de salud o noticias</b></td><td>No aplica a ninguna de estas categorías.</td><td><span class="pill ok">Completado</span></td></tr>
+    </table>
+  </div>
+</section>
+
+<!-- 5. Versión -->
+<section id="version">
+  <h1>Producción · Crear versión</h1>
+  <p class="sub">Primero se valida en Prueba interna y después se promueve la misma versión a Producción.</p>
+  <div class="tarjeta">
+    <h2>Firma de apps de Google Play</h2>
+    <p class="ayuda">El AAB va firmado con la <b>llave de subida</b> del desarrollador; Play vuelve a firmar los APK de cada dispositivo con la llave de la app que resguarda Google.</p>
+    <span class="pill ok">Play App Signing activado (simulado)</span>
+  </div>
+  <div class="tarjeta">
+    <h2>App bundles</h2>
+    <div class="zona" id="zona">
+      <p><b>Arrastra el archivo .aab o selecciónalo</b></p>
+      <input type="file" id="archivo" accept=".aab">
+      <p id="zona-msg">El navegador calcula la huella SHA-256 del archivo y la compara con la compilación de Gradle.</p>
+    </div>
+    <table id="tabla-aab" style="margin-top:14px; display:none">
+      <tr><th>Archivo</th><th>Versión</th><th>API</th><th>Tamaño</th><th>Descarga estimada</th></tr>
+      <tr><td id="v-nombre"></td><td id="v-version"></td><td id="v-api"></td><td id="v-bytes"></td><td id="v-descarga"></td></tr>
+      <tr><td colspan="5"><span class="mono" id="v-sha"></span></td></tr>
+    </table>
+  </div>
+  <div class="tarjeta">
+    <h2>Detalles de la versión</h2>
+    <label for="v-nota-nombre">Nombre de la versión</label>
+    <input type="text" id="v-nota-nombre">
+    <label for="v-notas">Notas de la versión (es-419)</label>
+    <textarea id="v-notas" rows="4">&lt;es-419&gt;
+Primera versión de Agenda Académica: registro de tareas por materia y fecha, filtros por estado, contadores de avance y aviso de privacidad dentro de la app.
+&lt;/es-419&gt;</textarea>
+  </div>
+</section>
+
+<!-- 6. Precios -->
+<section id="precios">
+  <h1>Precios y disponibilidad por países</h1>
+  <p class="sub">Define cuánto cuesta la app y en qué regiones aparece en la tienda.</p>
+  <div class="tarjeta">
+    <h2>Precio</h2>
+    <div class="opcion"><input type="radio" name="precio" id="pr-gratis" checked><span><b>Gratuita.</b> Una vez publicada como gratuita no se puede cambiar a de pago.</span></div>
+    <div class="opcion"><input type="radio" name="precio" id="pr-pago" disabled><span>De pago (requiere perfil de pagos; no se usa)</span></div>
+    <div class="opcion"><input type="checkbox" checked disabled><span>Sin compras dentro de la app ni suscripciones.</span></div>
+  </div>
+  <div class="tarjeta">
+    <h2>Países y regiones <span class="pill info" id="cuenta-paises"></span></h2>
+    <p class="ayuda">Se eligió Latinoamérica, España y Estados Unidos porque la app y su ficha están en español.</p>
+    <div class="paises" id="paises"></div>
+  </div>
+</section>
+
+<!-- 7. Resumen -->
+<section id="resumen">
+  <h1>Checklist previo al lanzamiento</h1>
+  <p class="sub">Se calcula con los datos capturados en las secciones anteriores.</p>
+  <div class="tarjeta"><table id="checklist"><tr><th></th><th>Requisito</th><th>Comprobación</th></tr></table></div>
+  <div class="tarjeta">
+    <h2>Enviar cambios a revisión</h2>
+    <p class="ayuda" id="envio-msg"></p>
+    <div class="acciones" style="justify-content:flex-start"><button type="button" id="b-enviar">Enviar 1 cambio a revisión</button></div>
+    <div id="estados" style="margin-top:14px"></div>
+  </div>
+  <p class="nota">Simulación: en una cuenta real, la revisión de una app nueva puede tardar varios días y Google notifica por correo y en la consola el resultado (aprobada, rechazada o con cambios solicitados).</p>
+</section>
+
+</main>
+</div>
+<script src="datos.js"></script>
+<script>
+const D = window.DATOS, $ = id => document.getElementById(id);
+const mb = b => (b / 1048576).toFixed(2) + ' MB';
+let aabCargado = false;
+$('h-paquete').textContent = D.paquete;
+$('c-paquete').value = D.paquete;
+$('v-nota-nombre').value = `${D.versionCode} (${D.versionName})`;
+$('p-permisos').textContent = D.permisos.length ? D.permisos.join(', ') : 'La app no solicita permisos del sistema (sin internet, ubicación, cámara, contactos ni almacenamiento).';
+
+// Contadores de caracteres
+document.querySelectorAll('[data-cuenta]').forEach(c => {
+  const campo = $(c.dataset.cuenta), max = +c.dataset.max;
+  const act = () => { c.textContent = `${campo.value.length}/${max}`; c.classList.toggle('mal', campo.value.length > max); revisar(); };
+  campo.addEventListener('input', act); act();
+});
+document.querySelectorAll('[data-medida]').forEach(s => {
+  const img = $(s.dataset.medida);
+  const act = () => { s.textContent = `${img.naturalWidth} x ${img.naturalHeight}`; revisar(); };
+  img.complete ? act() : img.addEventListener('load', act);
+});
+
+// Países
+const PAISES = ['Argentina','Bolivia','Brasil','Canadá','Chile','Colombia','Costa Rica','Ecuador','El Salvador','España','Estados Unidos','Francia','Guatemala','Honduras','India','Japón','México','Nicaragua','Panamá','Paraguay','Perú','Portugal','Puerto Rico','Reino Unido','República Dominicana','Uruguay'];
+const ELEGIDOS = new Set(['Argentina','Bolivia','Chile','Colombia','Costa Rica','Ecuador','El Salvador','España','Estados Unidos','Guatemala','Honduras','México','Nicaragua','Panamá','Paraguay','Perú','Puerto Rico','República Dominicana','Uruguay']);
+PAISES.forEach(p => {
+  const l = document.createElement('label');
+  l.innerHTML = `<input type="checkbox" ${ELEGIDOS.has(p) ? 'checked' : ''}> ${p}`;
+  l.querySelector('input').addEventListener('change', revisar);
+  $('paises').appendChild(l);
+});
+
+// Carga del AAB: el hash se calcula en el navegador con el archivo real
+async function mostrarAab(nombre, bytes, sha) {
+  aabCargado = sha === D.aab.sha256;
+  $('zona').classList.toggle('lista', aabCargado);
+  $('zona-msg').textContent = aabCargado
+    ? `Archivo cargado y verificado: la huella coincide con la compilación del ${D.aab.fecha}.`
+    : 'La huella no coincide con la compilación de Gradle. Vuelve a generar el AAB.';
+  $('tabla-aab').style.display = '';
+  $('v-nombre').textContent = nombre;
+  $('v-version').textContent = `${D.versionCode} (${D.versionName})`;
+  $('v-api').textContent = `mín. ${D.minSdk} · objetivo ${D.targetSdk}`;
+  $('v-bytes').textContent = mb(bytes);
+  $('v-descarga').textContent = `${mb(D.descarga.min)} – ${mb(D.descarga.max)}`;
+  $('v-sha').textContent = 'SHA-256 ' + sha;
+  revisar();
+}
+$('archivo').addEventListener('change', async e => {
+  const f = e.target.files[0]; if (!f) return;
+  const buf = await f.arrayBuffer();
+  const h = [...new Uint8Array(await crypto.subtle.digest('SHA-256', buf))].map(b => b.toString(16).padStart(2, '0')).join('');
+  mostrarAab(f.name, f.size, h);
+});
+
+// Checklist
+function requisitos() {
+  const img = id => $(id).naturalWidth ? [$(id).naturalWidth, $(id).naturalHeight] : [0, 0];
+  const [iw, ih] = img('g-icono'), [gw, gh] = img('g-grafico');
+  const paises = [...document.querySelectorAll('#paises input:checked')].length;
+  return [
+    ['crear', 'Nombre de la app (máx. 30 caracteres)', $('f-nombre').value.length > 0 && $('f-nombre').value.length <= 30, `"${$('f-nombre').value}" · ${$('f-nombre').value.length} caracteres`],
+    ['crear', 'Declaraciones y acuerdos aceptados', $('d-politicas').checked && $('d-acuerdo').checked && $('d-export').checked, 'Políticas, Acuerdo de distribución y exportación'],
+    ['ficha', 'Descripción breve (máx. 80)', $('f-breve').value.length <= 80 && $('f-breve').value.length > 10, `${$('f-breve').value.length}/80`],
+    ['ficha', 'Descripción completa (máx. 4000)', $('f-completa').value.length <= 4000 && $('f-completa').value.length > 80, `${$('f-completa').value.length}/4000`],
+    ['ficha', 'Icono de 512 x 512 px', iw === 512 && ih === 512, `${iw} x ${ih}`],
+    ['ficha', 'Gráfico de funciones de 1024 x 500 px', gw === 1024 && gh === 500, `${gw} x ${gh}`],
+    ['ficha', 'Capturas de teléfono (mínimo 2)', $('g-telefono').children.length >= 2, `${$('g-telefono').children.length} capturas de 1080 x 2400`],
+    ['ficha', 'Capturas de tableta', $('g-tableta').children.length >= 1, `${$('g-tableta').children.length} captura de 2560 x 1600`],
+    ['configuracion', 'Categoría y correo de contacto', $('k-cat').value !== '' && $('k-correo').checkValidity() && $('k-correo').value !== '', `${$('k-cat').value} · ${$('k-correo').value}`],
+    ['contenido', 'Política de privacidad en URL pública (HTTPS)', /^https:\/\//.test($('p-url').value), 'Enlace en la ficha y pantalla dentro de la app'],
+    ['contenido', 'Anuncios, clasificación, público y seguridad de datos', $('a-no').checked, 'Sin anuncios · PEGI 3 · 13+ · no recopila datos'],
+    ['contenido', 'Sin permisos sensibles', D.permisos.length === 0, '0 permisos del sistema'],
+    ['version', 'AAB firmado cargado y verificado', aabCargado, aabCargado ? `${D.aab.nombre} · ${mb(D.aab.bytes)}` : 'Pendiente de carga'],
+    ['version', 'API objetivo 35 o superior (requisito vigente)', D.targetSdk >= 35, `targetSdk ${D.targetSdk}`],
+    ['precios', 'Precio y países definidos', paises > 0 && $('pr-gratis').checked, `Gratuita · ${paises} países`],
+  ];
+}
+function revisar() {
+  if (!$('checklist')) return;
+  const r = requisitos();
+  const t = $('checklist');
+  t.querySelectorAll('tr:not(:first-child)').forEach(x => x.remove());
+  r.forEach(([, req, ok, det]) => {
+    const tr = t.insertRow();
+    tr.innerHTML = `<td class="check ${ok ? 'si' : 'no'}">${ok ? '✓' : '✗'}</td><td>${req}</td><td>${det}</td>`;
+  });
+  const secciones = {};
+  r.forEach(([s, , ok]) => secciones[s] = (secciones[s] ?? true) && ok);
+  Object.entries(secciones).forEach(([s, ok]) => document.querySelector(`[data-ok="${s}"]`).textContent = ok ? '✓' : '');
+  const listos = r.filter(x => x[2]).length, todo = listos === r.length;
+  document.querySelector('[data-ok="resumen"]').textContent = todo ? '✓' : '';
+  const n = $('cuenta-paises'); if (n) n.textContent = `${document.querySelectorAll('#paises input:checked').length} seleccionados`;
+  const pu = document.querySelector('[data-estado="p-url"]');
+  const okUrl = /^https:\/\//.test($('p-url').value); pu.textContent = okUrl ? 'Completado' : 'Falta URL'; pu.className = 'pill ' + (okUrl ? 'ok' : 'pend');
+  $('b-enviar').disabled = !todo;
+  $('envio-msg').textContent = todo ? `${listos} de ${r.length} requisitos cumplidos. La versión está lista para revisión.` : `${listos} de ${r.length} requisitos cumplidos. Completa los pendientes para enviar.`;
+}
+
+// Envío simulado: muestra la secuencia de estados y notificaciones
+$('b-enviar').addEventListener('click', () => {
+  const ahora = new Date(), f = d => d.toLocaleString('es-MX', { dateStyle: 'medium', timeStyle: 'short' });
+  const pasos = [
+    [0, 'Enviada a revisión', 'info', 'Notificación: «Tus cambios se enviaron para revisión».'],
+    [2, 'En revisión', 'pend', 'Notificación: «Revisión en curso. Las apps nuevas pueden tardar hasta 7 días».'],
+    [3 * 24 * 60, 'Aprobada · Publicada', 'ok', 'Notificación: «Agenda Académica 1.0.0 ya está disponible en Google Play» (resultado simulado).'],
+  ];
+  $('estados').innerHTML = pasos.map(([min, est, cls, msg]) =>
+    `<div class="estado"><b>${f(new Date(ahora.getTime() + min * 60000))}</b><span class="pill ${cls}">${est}</span><span>${msg}</span></div>`).join('');
+  $('b-enviar').disabled = true; $('b-enviar').textContent = 'Enviado (simulación)';
+});
+
+// Navegación por secciones
+function mostrar() {
+  const s = location.hash.slice(1) || 'crear';
+  document.querySelectorAll('section').forEach(x => x.classList.toggle('visible', x.id === s));
+  document.querySelectorAll('nav a').forEach(a => a.classList.toggle('activo', a.dataset.s === s));
+  window.scrollTo(0, 0); revisar();
+}
+addEventListener('hashchange', mostrar); mostrar();
+$('b-crear').addEventListener('click', () => location.hash = 'ficha');
+</script>
+</body>
+</html>

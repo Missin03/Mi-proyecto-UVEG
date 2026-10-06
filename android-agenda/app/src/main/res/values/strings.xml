@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Agenda Académica</string>
+    <string name="subtitulo">Tareas escolares por materia y fecha</string>
+
+    <string name="eyebrow">TUS ENTREGAS</string>
+    <string name="encabezado">Organiza tus tareas y no se te pase ninguna fecha</string>
+    <string name="pendientes">Pendientes</string>
+    <string name="pendiente">Pendiente</string>
+    <string name="en_curso">En curso</string>
+    <string name="completada">Completada</string>
+    <string name="completadas">Completadas</string>
+    <string name="todas">Todas</string>
+    <string name="filtrar">Filtrar por estado</string>
+    <string name="vacio">No hay tareas en esta vista. Toca «Nueva tarea» para registrar la primera.</string>
+    <string name="nueva_tarea">Nueva tarea</string>
+    <string name="entrega">Entrega: %1$s</string>
+    <string name="marcar_como">Marcar %1$s</string>
+    <string name="eliminar">Eliminar</string>
+    <string name="eliminar_tarea">Eliminar la tarea %1$s</string>
+    <string name="eliminar_titulo">¿Eliminar tarea?</string>
+    <string name="eliminar_mensaje">Se borrará «%1$s» de este teléfono. Esta acción no se puede deshacer.</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="aceptar">Aceptar</string>
+
+    <string name="materia">Materia</string>
+    <string name="titulo">Título de la tarea</string>
+    <string name="descripcion">Descripción (opcional)</string>
+    <string name="fecha_entrega">Fecha de entrega (AAAA-MM-DD)</string>
+    <string name="elegir_fecha">Elegir fecha en el calendario</string>
+    <string name="estado">Estado</string>
+    <string name="guardar">Guardar tarea</string>
+    <string name="aviso_datos">Las tareas se guardan solo en este teléfono. No escribas contraseñas ni datos personales sensibles.</string>
+    <string name="error_materia">Escribe la materia.</string>
+    <string name="error_titulo">El título debe tener al menos 3 caracteres.</string>
+    <string name="error_fecha">Usa una fecha válida con el formato AAAA-MM-DD.</string>
+
+    <string name="menu_privacidad">Aviso de privacidad</string>
+    <string name="menu_terminos">Términos de uso</string>
+    <string name="menu_acerca">Acerca de</string>
+    <string name="acerca_mensaje">Versión %1$s\n\nApp para organizar tareas escolares. Desarrollada por Emmanuel Missin Garcia Vargas como práctica del módulo Despliegue de aplicaciones web y móviles (UVEG).\n\nSin anuncios, sin cuentas y sin permisos especiales.</string>
+
+    <string name="privacidad_titulo">Aviso de privacidad</string>
+    <string name="terminos_titulo">Términos de uso</string>
+    <string name="ver_en_linea">Ver la política en línea</string>
+    <string name="url_privacidad">https://github.com/Missin03/Mi-proyecto-UVEG/blob/main/android-agenda/PRIVACIDAD.md</string>
+
+    <string name="privacidad_html"><![CDATA[
+<p><b>Responsable:</b> Emmanuel Missin Garcia Vargas, desarrollador de Agenda Académica.</p>
+<p><b>Qué datos se guardan.</b> Solo lo que escribes en cada tarea: materia, título, descripción, fecha de entrega y estado.</p>
+<p><b>Dónde se guardan.</b> En una base de datos dentro de este teléfono. La app no tiene permiso de internet, no crea cuentas y no envía información a servidores propios ni de terceros.</p>
+<p><b>Para qué se usan.</b> Únicamente para mostrarte tus tareas, ordenarlas por fecha y contar cuántas tienes en cada estado.</p>
+<p><b>Publicidad y analítica.</b> La app no muestra anuncios ni incluye herramientas de seguimiento o analítica.</p>
+<p><b>Cómo borrar tus datos.</b> Puedes eliminar cada tarea desde la lista. Al desinstalar la app o borrar sus datos en Ajustes, se elimina toda la información.</p>
+<p><b>Menores de edad.</b> La app está pensada para estudiantes de bachillerato y universidad; no recopila datos de identificación.</p>
+<p><b>Contacto.</b> Dudas o solicitudes en la página de soporte del proyecto: github.com/Missin03/Mi-proyecto-UVEG/issues</p>
+<p>Última actualización: 6 de octubre de 2026.</p>
+]]></string>
+
+    <string name="terminos_html"><![CDATA[
+<p>Agenda Académica es una herramienta gratuita para registrar y dar seguimiento a tareas escolares.</p>
+<p><b>Uso permitido.</b> Úsala para organizar tus actividades. No guardes contraseñas, números de identificación ni datos de terceros.</p>
+<p><b>Responsabilidad.</b> La app no sustituye el calendario oficial de tu escuela. Verifica siempre tus fechas en la plataforma institucional.</p>
+<p><b>Cambios.</b> Las nuevas versiones se distribuyen como actualizaciones de la app y pueden modificar estos términos; la fecha de actualización aparece al final.</p>
+<p>Última actualización: 6 de octubre de 2026.</p>
+]]></string>
+</resources>

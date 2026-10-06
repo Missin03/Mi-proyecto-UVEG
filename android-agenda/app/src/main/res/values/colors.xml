@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="verde">#126348</color>
+    <color name="verde_claro">#E7F5EE</color>
+    <color name="tinta">#142A3A</color>
+    <color name="gris">#526574</color>
+    <color name="linea">#D6E1E6</color>
+    <color name="fondo">#F3F6F8</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="rojo">#9C2030</color>
+    <color name="ambar">#6E4500</color>
+    <color name="ambar_claro">#FFF1D2</color>
+</resources>

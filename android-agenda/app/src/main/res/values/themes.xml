@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Agenda" parent="Theme.Material3.Light.NoActionBar">
+        <item name="colorPrimary">@color/verde</item>
+        <item name="colorOnPrimary">@color/blanco</item>
+        <item name="colorPrimaryContainer">@color/verde_claro</item>
+        <item name="colorOnPrimaryContainer">@color/verde</item>
+        <item name="colorSecondaryContainer">@color/verde_claro</item>
+        <item name="colorOnSecondaryContainer">@color/verde</item>
+        <item name="colorSurface">@color/blanco</item>
+        <item name="colorOnSurface">@color/tinta</item>
+        <item name="colorOnSurfaceVariant">@color/gris</item>
+        <item name="colorOutline">@color/gris</item>
+        <item name="colorOutlineVariant">@color/linea</item>
+        <item name="colorError">@color/rojo</item>
+        <item name="android:colorBackground">@color/fondo</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">true</item>
+    </style>
+
+    <!-- Formularios y textos legales usan fondo blanco. -->
+    <style name="Theme.Agenda.Blanco">
+        <item name="android:windowBackground">@color/blanco</item>
+    </style>
+
+    <style name="Agenda.Numero" parent="">
+        <item name="android:textSize">28sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/tinta</item>
+    </style>
+
+    <style name="Agenda.Etiqueta" parent="">
+        <item name="android:textSize">13sp</item>
+        <item name="android:textColor">@color/gris</item>
+    </style>
+</resources>

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Tabletas en horizontal: se limita el ancho de lectura de las tarjetas. -->
+    <dimen name="margen_lateral">220dp</dimen>
+</resources>

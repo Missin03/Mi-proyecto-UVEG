@@ -1,0 +1,29 @@
+<!-- Calendario con palomita. Todo cabe en la zona segura de 66 dp del icono adaptable. -->
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M40,36L68,36Q74,36 74,42L74,70Q74,76 68,76L40,76Q34,76 34,70L34,42Q34,36 40,36Z"
+        android:strokeWidth="4"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineJoin="round" />
+    <path
+        android:fillColor="#FFFFFFFF"
+        android:pathData="M34,42Q34,36 40,36L68,36Q74,36 74,42L74,47L34,47Z" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M44,30L44,39M64,30L64,39"
+        android:strokeWidth="4"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round" />
+    <path
+        android:fillColor="#00000000"
+        android:pathData="M44,61L51,68L65,54"
+        android:strokeWidth="5"
+        android:strokeColor="#FFFFFFFF"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round" />
+</vector>
