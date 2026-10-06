@@ -1,0 +1,9 @@
+{
+  "appId": "io.github.missin03.agendaacademica",
+  "appName": "Agenda Académica",
+  "webDir": "www",
+  "ios": {
+    "contentInset": "never",
+    "backgroundColor": "#f3f6f8"
+  }
+}

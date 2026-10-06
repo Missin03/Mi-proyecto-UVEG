@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self'; script-src 'self'; img-src 'self' data:">
+<title>Agenda Académica</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="barra">
+  <div>
+    <h1>Agenda Académica</h1>
+    <p>Tareas escolares por materia y fecha</p>
+  </div>
+  <button class="icono" id="abrir-menu" aria-label="Más opciones" aria-haspopup="menu">•••</button>
+</header>
+
+<main id="principal">
+  <p class="eyebrow">TUS ENTREGAS</p>
+  <h2 class="encabezado">Organiza tus tareas y no se te pase ninguna fecha</h2>
+  <section class="contadores" aria-label="Resumen">
+    <div class="tarjeta"><strong id="n-pendiente">0</strong><span>Pendientes</span></div>
+    <div class="tarjeta"><strong id="n-en_curso">0</strong><span>En curso</span></div>
+    <div class="tarjeta"><strong id="n-completada">0</strong><span>Completadas</span></div>
+  </section>
+  <div class="filtros" role="radiogroup" aria-label="Filtrar por estado">
+    <button role="radio" aria-checked="true" data-filtro="">Todas</button>
+    <button role="radio" aria-checked="false" data-filtro="pendiente">Pendientes</button>
+    <button role="radio" aria-checked="false" data-filtro="en_curso">En curso</button>
+    <button role="radio" aria-checked="false" data-filtro="completada">Completadas</button>
+  </div>
+  <p id="vacio" class="vacio" hidden>No hay tareas en esta vista. Toca «Nueva tarea» para registrar la primera.</p>
+  <ul id="lista" class="lista"></ul>
+</main>
+
+<button class="fab" id="nueva">＋ Nueva tarea</button>
+
+<!-- Formulario -->
+<dialog id="formulario" aria-labelledby="titulo-form">
+  <form method="dialog" id="form-tarea" novalidate>
+    <div class="hoja-barra">
+      <button type="button" class="texto" id="cancelar">Cancelar</button>
+      <h2 id="titulo-form">Nueva tarea</h2>
+      <button type="submit" class="texto fuerte" id="guardar">Guardar</button>
+    </div>
+    <label for="f-materia">Materia</label>
+    <input id="f-materia" maxlength="60" autocomplete="off">
+    <p class="error" id="e-materia"></p>
+    <label for="f-titulo">Título de la tarea</label>
+    <input id="f-titulo" maxlength="120" autocomplete="off">
+    <p class="error" id="e-titulo"></p>
+    <label for="f-descripcion">Descripción (opcional)</label>
+    <textarea id="f-descripcion" rows="3" maxlength="500"></textarea>
+    <label for="f-fecha">Fecha de entrega</label>
+    <input id="f-fecha" type="date">
+    <p class="error" id="e-fecha"></p>
+    <fieldset>
+      <legend>Estado</legend>
+      <div class="segmentos">
+        <label><input type="radio" name="estado" value="pendiente" checked><span>Pendiente</span></label>
+        <label><input type="radio" name="estado" value="en_curso"><span>En curso</span></label>
+        <label><input type="radio" name="estado" value="completada"><span>Completada</span></label>
+      </div>
+    </fieldset>
+    <p class="aviso">Las tareas se guardan solo en este iPhone. No escribas contraseñas ni datos personales sensibles.</p>
+  </form>
+</dialog>
+
+<!-- Menú -->
+<dialog id="menu" class="menu" aria-label="Opciones">
+  <button data-legal="privacidad">Aviso de privacidad</button>
+  <button data-legal="terminos">Términos de uso</button>
+  <button id="acerca">Acerca de</button>
+  <button class="cerrar" id="cerrar-menu">Cerrar</button>
+</dialog>
+
+<!-- Documentos legales -->
+<dialog id="legal" aria-labelledby="titulo-legal">
+  <div class="hoja-barra">
+    <button type="button" class="texto" id="cerrar-legal">‹ Volver</button>
+    <h2 id="titulo-legal"></h2>
+    <span></span>
+  </div>
+  <article id="texto-legal" class="legal" tabindex="-1"></article>
+</dialog>
+
+<script src="app.js"></script>
+</body>
+</html>

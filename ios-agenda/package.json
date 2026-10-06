@@ -1,0 +1,16 @@
+{
+  "name": "agenda-academica-ios",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Agenda Académica para iOS empaquetada con Capacitor (Reto 5, UVEG)",
+  "scripts": {
+    "sync": "cap sync ios"
+  },
+  "dependencies": {
+    "@capacitor/core": "8.5.2",
+    "@capacitor/ios": "8.5.2"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "8.5.2"
+  }
+}
